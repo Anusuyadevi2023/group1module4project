@@ -3,7 +3,7 @@ version: 2.1
 #
 # Code base from Lauren
 # 
-# I have commented out Lauren's code and edited it for build and test jobs to work
+# I have commented out Lauren's code and edited for build and test jobs to work
 # You might want to uncomment the code in your section and see if it works for you
 # 
 
@@ -98,8 +98,8 @@ workflows:
   #         requires:
   #             - test
 
-   cicd_flow:
-     jobs:
+  cicd_flow:
+    jobs:
   #lauren's portion below
   #   - build:
   #       filters:
