@@ -1,0 +1,141 @@
+version: 2.1
+
+#
+# Code base from Lauren
+# 
+# I have commented out Lauren's code and edited it for build and test jobs to work
+# You might want to uncomment the code in your section and see if it works for you
+# 
+
+# #ORBS:
+# orbs:
+#   node: circleci/node@5.0.1
+#   docker: circleci/docker@2.1.4
+#   heroku: circleci/heroku@2.0.0
+#   snyk: snyk/snyk@1.5.0
+
+#JOBS: build, test, scan, publish, pull-and-deploy
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run:
+          name: Build
+          command: mvn -B -DskipTests clean package
+  test:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: mvn test
+  #anu?
+  scan:
+  # scan:
+  #   docker:
+  #     - image: cimg/node:16.10
+  #   environment:
+  #     IMAGE_NAME: #TBC Image Name (Eg: laurenong/education-space) [elly: is this from chatgpt? i think it's wrong, image name should be cimg/openjdk:17.0]
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker
+  #     - docker/check
+  #     - run: docker build -t $IMAGE_NAME .
+  #     - snyk/scan:
+  #         docker-image-name: $IMAGE_NAME
+  #sing's portion below
+  publish:
+  #   executor: docker/docker
+  #   steps:
+  #     - setup_remote_docker
+  #     - checkout
+  #     - docker/check
+  #     - docker/build:
+  #         image: #TBC Image Name (Eg: laurenong/education-space)
+  #     - docker/push:
+  #         image: #TBC Image Name (Eg: laurenong/education-space)
+  #georgiana's portion below
+  pull-and-deploy:
+  # deploy:
+  #   docker:
+  #     - image: cimg/node:16.10
+  #   steps:
+  #     - setup_remote_docker
+  #     - checkout
+  #     - heroku/install
+  #     - run:
+  #         name: Heroku Container Push
+  #         command: |
+  #             heroku container:login
+  #             heroku container:push web -a ["TBC Heroku container name (Eg:lauren-su-devops)"]
+  #             heroku container:release web -a ["TBC Heroku container name (Eg:lauren-su-devops)"]
+
+#WORKFLOW: ci_flow = dev branch & cicd_flow = release branch
+workflows:
+  ci_flow:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - build
+  #anu?
+  #     - scan:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - development
+  #         requires:
+  #             - test
+
+   cicd_flow:
+     jobs:
+  #lauren's portion below
+  #   - build:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - release
+  #     - test:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - release
+  #         requires:
+  #           - build
+  #           # + all tests pass
+  #anu?
+  #     - scan:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - release
+  #         requires:
+  #             - test
+  #sing's portion below
+  #     - publish:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - release
+  #         requires:
+  #           - scan
+  #georgiana's portion below
+  #     - deploy:
+  #       filters:
+  #         branches:
+  #           only:
+  #             - release
+  #         requires:
+  #           - publish
+
