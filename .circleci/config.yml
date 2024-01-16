@@ -88,7 +88,6 @@ workflows:
 
   cicd_flow:
     jobs:
-
       #lauren's portion below
       #   - build:
       #       filters:
@@ -103,7 +102,7 @@ workflows:
       #         requires:
       #           - build
       #           # + all tests pass
-      
+
       #sing?
       #     - scan:
       #       filters:
@@ -114,11 +113,11 @@ workflows:
       #             - test
 
       # anu's portion below
-          - publish:
-            filters:
-              branches:
-                only:
-                  - release
+      - publish:
+          filters:
+            branches:
+              only:
+                - release
               # requires:
               #   - scan
 
