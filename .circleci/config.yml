@@ -45,6 +45,7 @@ jobs:
   #     - run: docker build -t $IMAGE_NAME .
   #     - snyk/scan:
   #         docker-image-name: $IMAGE_NAME
+
   #anu's portion below
   publish:
     executor: docker/docker
@@ -58,7 +59,6 @@ jobs:
       - docker/push:
           image: anusuyadevi2024/group1module4project
           tag: latest
-  #georgiana's portion below
 
 #WORKFLOW: ci_flow = dev branch & cicd_flow = release branch
 workflows:
@@ -89,18 +89,18 @@ workflows:
   cicd_flow:
     jobs:
       #lauren's portion below
-      #   - build:
-      #       filters:
-      #         branches:
-      #           only:
-      #             - release
-      #     - test:
-      #       filters:
-      #         branches:
-      #           only:
-      #             - release
-      #         requires:
-      #           - build
+      - build:
+          filters:
+            branches:
+              only:
+                - develop
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
+            requires:
+              - build
       #           # + all tests pass
 
       #sing?
@@ -117,7 +117,7 @@ workflows:
           filters:
             branches:
               only:
-                - release
+                - develop
               # requires:
               #   - scan
 
@@ -130,5 +130,5 @@ workflows:
             branches:
               only:
                 - develop
-          # requires:
-          #   - publish
+          requires:
+            - publish
