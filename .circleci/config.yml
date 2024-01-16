@@ -48,17 +48,30 @@ jobs:
 
   #anu's portion below
   publish:
-    executor: docker/docker
+    # executor: docker/docker
+    # steps:
+    #   - setup_remote_docker
+    #   - checkout
+    #   - docker/check
+    #   - docker/build:
+    #       image: anusuyadevi2024/group1module4project
+    #       tag: latest
+    #   - docker/push:
+    #       image: anusuyadevi2024/group1module4project
+    #       tag: latest
+    docker:
+      - image: cimg/openjdk:17.0
     steps:
       - setup_remote_docker
       - checkout
-      - docker/check
-      - docker/build:
-          image: anusuyadevi2024/group1module4project
-          tag: latest
-      - docker/push:
-          image: anusuyadevi2024/group1module4project
-          tag: latest
+      - run:
+          name: publish Docker Image
+          command: |
+            docker build -t anusuyadevi2024/group1module4project:latest .
+            echo "DOCKER_USERNAME: $DOCKER_USERNAME"
+            echo "DOCKER_PASSWORD: $DOCKER_PASSWORD"
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push anusuyadevi2024/group1module4project:latest
 
 #WORKFLOW: ci_flow = dev branch & cicd_flow = release branch
 workflows:
