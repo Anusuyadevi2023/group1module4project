@@ -18,7 +18,11 @@ jobs:
   build:
     docker:
       - image: cimg/openjdk:17.0
-      - image: cimg/postgres:16.1.0
+      - image: cimg/postgres:13.3
+        # environment:
+        #   POSTGRES_USER: postgres
+        #   POSTGRES_DB: postgres
+        #   POSTGRES_PASSWORD: postgres
     steps:
       - checkout
       - run:
@@ -27,7 +31,6 @@ jobs:
   test:
     docker:
       - image: cimg/openjdk:17.0
-      - image: cimg/postgres:16.1.0
     steps:
       - checkout
       - run:
