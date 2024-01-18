@@ -32,7 +32,7 @@ public class UserMovie {
 
     private Long userid;
 
-    @Column(name = "movie_id", nullable = true)
+    @Column(name = "movieid", nullable = true)
     private Long movieid;
 
     @JsonBackReference("user-usermovie")
@@ -43,7 +43,7 @@ public class UserMovie {
 
     @JsonBackReference("movie-usermovie")
     @ManyToOne(optional = false)
-    @JoinColumn(name = "movie_id", insertable = false, updatable = false)
+    @JoinColumn(name = "movieid", insertable = false, updatable = false)
     private Movie movie;
 
     public UserMovie(Long userid, Long movieid) {
