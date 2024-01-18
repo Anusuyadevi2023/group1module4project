@@ -96,12 +96,12 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - release
       - test:
           filters:
             branches:
               only:
-                - develop
+                - release
           requires:
             - build
       #           # + all tests pass
@@ -120,7 +120,7 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - release
               # requires:
               #   - scan
 
@@ -132,6 +132,6 @@ workflows:
           filters:
             branches:
               only:
-                - develop
+                - release
           requires:
             - publish
