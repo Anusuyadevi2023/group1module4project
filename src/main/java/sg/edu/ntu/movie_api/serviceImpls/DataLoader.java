@@ -51,11 +51,11 @@ public class DataLoader {
     @PostConstruct
     public void loadData() {
         // clear the database first
-        userRepository.deleteAll();
-        movieRepository.deleteAll();
-        genreRepository.deleteAll();
-        userMovieRepository.deleteAll();
-        movieRatingRepository.deleteAll();
+        userRepository.deleteAllInBatch();
+        movieRepository.deleteAllInBatch();
+        genreRepository.deleteAllInBatch();
+        userMovieRepository.deleteAllInBatch();
+        movieRatingRepository.deleteAllInBatch();
 
         // load data here
         userRepository.save(new User("user1@gmail.com", "password1", "name1"));
