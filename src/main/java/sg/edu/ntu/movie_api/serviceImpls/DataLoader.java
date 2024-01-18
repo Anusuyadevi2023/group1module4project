@@ -55,6 +55,7 @@ public class DataLoader {
         movieRepository.deleteAll();
         genreRepository.deleteAll();
         userMovieRepository.deleteAll();
+        movieRatingRepository.deleteAll();
 
         // load data here
         userRepository.save(new User("user1@gmail.com", "password1", "name1"));
