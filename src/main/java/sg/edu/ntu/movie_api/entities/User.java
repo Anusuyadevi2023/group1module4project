@@ -70,9 +70,9 @@ public class User {
     public User() {
     }
 
-    public User(Long userid, String email, String password, String name) {
+    public User(String email, String password, String name) {
         this();
-        this.userid = userid;
+        //this.userid = userid;
         this.email = email;
         this.password = password;
         this.name = name;
