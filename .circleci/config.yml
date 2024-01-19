@@ -33,20 +33,20 @@ jobs:
       - run:
           name: Test
           command: mvn test
-  #sing?
+  #sing 20240109
   scan:
-  # scan:
-  #   docker:
-  #     - image: cimg/node:16.10
-  #   environment:
-  #     IMAGE_NAME: #TBC Image Name (Eg: laurenong/education-space) [elly: is this from chatgpt? i think it's wrong, image name should be cimg/openjdk:17.0]
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker
-  #     - docker/check
-  #     - run: docker build -t $IMAGE_NAME .
-  #     - snyk/scan:
-  #         docker-image-name: $IMAGE_NAME
+    docker:
+          - image: cimg/openjdk:17.0
+          - image: cimg/postgres:13.3
+      environment:
+        IMAGE_NAME: anusuyadevi2024/group1module4project
+      steps:
+          - checkout
+          - setup_remote_docker
+          - docker/check
+          - run: docker build -t $IMAGE_NAME .
+          - snyk/scan:
+              docker-image-name: $IMAGE_NAME
 
   #anu's portion below
   publish:
@@ -80,14 +80,21 @@ workflows:
           requires:
             - build
 
-      #sing?
-      #     - scan:
-      #       filters:
-      #         branches:
-      #           only:
-      #             - development
-      #         requires:
-      #             - test
+      #sing 20240109 project requirements: scan only needed for ci_flow
+      - scan:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test
+      - publish:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - scan
 
   cicd_flow:
     jobs:
