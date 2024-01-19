@@ -36,17 +36,17 @@ jobs:
   #sing 20240109
   scan:
     docker:
-          - image: cimg/openjdk:17.0
-          - image: cimg/postgres:13.3
-      environment:
-        IMAGE_NAME: anusuyadevi2024/group1module4project
-      steps:
-          - checkout
-          - setup_remote_docker
-          - docker/check
-          - run: docker build -t $IMAGE_NAME .
-          - snyk/scan:
-              docker-image-name: $IMAGE_NAME
+        - image: cimg/openjdk:17.0
+        - image: cimg/postgres:13.3
+    environment:
+      IMAGE_NAME: anusuyadevi2024/group1module4project
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker/check
+      - run: docker build -t $IMAGE_NAME .
+      - snyk/scan:
+          docker-image-name: $IMAGE_NAME
 
   #anu's portion below
   publish:
