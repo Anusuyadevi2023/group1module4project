@@ -1,5 +1,6 @@
 package sg.edu.ntu.movie_api.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +31,8 @@ public class UserMovie {
     private Long userMovieid;
 
     private Long userid;
+
+    @Column(name = "movieid", nullable = true)
     private Long movieid;
 
     @JsonBackReference("user-usermovie")

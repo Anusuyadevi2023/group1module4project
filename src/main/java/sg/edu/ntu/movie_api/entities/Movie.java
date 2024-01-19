@@ -32,7 +32,7 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
+    @Column(name = "movieid")
     private Long movieid;
 
     @NotBlank(message = "Movie Title is mandatory")
