@@ -1,12 +1,5 @@
 version: 2.1
 
-# test test
-# Code base from Lauren
-#
-# I have commented out Lauren's code and edited for build and test jobs to work
-# You might want to uncomment the code in your section and see if it works for you
-#
-
 #ORBS:
 orbs:
   docker: circleci/docker@2.1.4
@@ -80,8 +73,6 @@ workflows:
                 - develop
           requires:
             - build
-
-      #sing 20240109 project requirements: scan only needed for ci_flow
       - scan:
           filters:
             branches:
@@ -89,13 +80,6 @@ workflows:
                 - develop
           requires:
             - test
-      - publish:
-          filters:
-            branches:
-              only:
-                - develop
-          requires:
-            - scan
 
   cicd_flow:
     jobs:
@@ -112,27 +96,20 @@ workflows:
                 - release
           requires:
             - build
-      #           # + all tests pass
-
-      #sing?
-      #     - scan:
-      #       filters:
-      #         branches:
-      #           only:
-      #             - release
-      #         requires:
-      #             - test
-
-      # anu's portion below
+      - scan:
+          filters:
+            branches:
+              only:
+                - develop
+          requires:
+            - test
       - publish:
           filters:
             branches:
               only:
                 - release
-              # requires:
-              #   - scan
-
-      #georgiana's portion below
+          requires:
+            - scan
       - heroku/push-docker-image:
           app-name: group1module4
           pre-deploy:
